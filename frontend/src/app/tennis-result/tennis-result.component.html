@@ -1,13 +1,46 @@
 <mat-card>
+  <mat-card-header>
     <mat-card-title>Result</mat-card-title>
-    <mat-card-content>
-      <div fxLayout="row">
-        <div fxFlex="20%">Test</div>
-        <div flex="20%">Test 2</div>
+  </mat-card-header>
+  <mat-divider [inset]="true"></mat-divider>
+  <mat-card-content class="result-card-content">
+    <div fxLayout="row" class="result-row">
+      <div fxFlex="20%">
+        Bernhard
       </div>
-      <div fxLayout="row">
-        <div fxFlex="20%">Test3</div>
-        <div flex="20%">Test 4</div>
+      <div fxFlex="80%" fxLayoutAlign="end" class="result-box">
+        <div class="games-box">
+          <mat-icon class="icon-half">sports_baseball</mat-icon>
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">7</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">6</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">7</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">6</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">7</div>
       </div>
-    </mat-card-content>
+    </div>
+    <div fxLayout="row" class="result-row">
+      <div fxFlex="20%">
+        Alex
+      </div>
+      <div fxFlex="80%" fxLayoutAlign="end" class="result-box">
+        <div class="games-box"></div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">6</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">7</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">6</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">7</div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="games-box">6</div>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>
