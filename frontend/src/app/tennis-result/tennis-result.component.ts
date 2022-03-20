@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TennisResultComponent implements OnInit {
 
+  showAdjustPoints: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
