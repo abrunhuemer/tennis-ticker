@@ -5,51 +5,31 @@
   <mat-divider [inset]="true"></mat-divider>
   <mat-card-content class="result-card-content">
     <div fxLayout="row" class="result-row">
-      <div fxFlex="20%">
-        <div>
-          Bernhard
+      <div fxFlex="20%" fxLayout="column" fxLayoutAlign="center">
+        <div fxFlex="50%">
+          {{match.playerName1}}
         </div>
-        <div>
-          Alex
+        <div fxFlex="50%">
+          {{match.playerName2}}
         </div>
       </div>
-      <div fxFlex="80%" fxLayoutAlign="end" class="result-box">
-        <div class="games-box">
-          <mat-icon class="icon-half">sports_baseball</mat-icon>
+      <div fxFlex="80%" fxLayoutAlign="end" fxLayout="row">
+        <div class="games-box" fxLayout="column" fxLayoutAlign="center center">
+          <div><mat-icon class="icon-half" fxFlex="50%">sports_baseball</mat-icon></div>
+          <div><mat-icon class="icon-half" fxFlex="50%">sports_baseball</mat-icon></div>
         </div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">7</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">6</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">7</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">6</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">5</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">0</div>
 
-      </div>
-    </div>
-    <div fxLayout="row" class="result-row">
-      <div fxFlex="20%">
-        Alex
-      </div>
-      <div fxFlex="80%" fxLayoutAlign="end" class="result-box">
-        <div class="games-box"></div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">6</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">7</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">6</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">7</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">5</div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="games-box">15</div>
+        <div *ngFor="let set of match.setsPlayer1; let i = index" class="games-box" fxLayout="row">
+          <mat-divider [vertical]="true"></mat-divider>
+          <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+            <div fxFlex="50%" >
+              {{match.setsPlayer1[i]}}
+            </div>
+            <div fxFlex="50%">
+              {{match.setsPlayer2[i]}}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </mat-card-content>

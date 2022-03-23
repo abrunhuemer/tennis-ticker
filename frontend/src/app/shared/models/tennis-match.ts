@@ -1,3 +1,5 @@
+import {TennisGameEnum} from "./tennis-game-enum";
+
 export class TennisMatch {
   playerName1: string;
   playerName2: string;

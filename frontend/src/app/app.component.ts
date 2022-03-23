@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TennisMatch} from "./shared/models/tennis-match";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Tennis-Ticker';
+
+  createTestMatch(): TennisMatch {
+    return new TennisMatch("Bernhard", "Alex");
+  }
 }
