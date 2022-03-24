@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
 .result-card-content {
   padding-top: 5px;
 }
@@ -10,4 +13,8 @@
 .games-box {
   width: 2em;
   text-align: center;
+}
+
+.result-button {
+  margin-top: 8px;
 }

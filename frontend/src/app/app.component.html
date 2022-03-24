@@ -1,4 +1,10 @@
 <router-outlet></router-outlet>
-<h1>{{title}}</h1>
+<mat-toolbar [color]="'primary'">
+  <span>{{title}}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>login</mat-icon>
+  </button>
+</mat-toolbar>
 
 <app-tennis-result [match]="createTestMatch()"></app-tennis-result>

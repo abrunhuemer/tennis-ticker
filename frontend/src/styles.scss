@@ -18,10 +18,18 @@ body {
   transform: scale(.5);
 }
 
+.icon-75 {
+  transform: scale(.75);
+}
+
 .icon-2x {
   transform: scale(2);
 }
 
 .icon-3x {
   transform: scale(3);
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

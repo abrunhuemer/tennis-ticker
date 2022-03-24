@@ -8,7 +8,7 @@ import {TennisMatch} from "../shared/models/tennis-match";
 })
 export class TennisResultComponent implements OnInit {
 
-  showAdjustPoints: boolean = true;
+  showPointControls: boolean = true;
 
   @Input()
   match: TennisMatch;
