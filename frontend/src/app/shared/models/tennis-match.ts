@@ -58,7 +58,6 @@ export class TennisMatch {
       return true;
     }
     return inGameOfPlayerWithPoint === TennisGameEnum.Forty && inGameOfOpponent !== TennisGameEnum.Forty;
-
   }
 
   private resetInGame(): void {
@@ -89,7 +88,7 @@ export class TennisMatch {
    */
   private getIndexForCurrentSet(): number {
     for (let i = 0; i < this.bestOfSets; i++) {
-      if (this.isSetFinished(i)) {
+      if (!this.isSetFinished(i)) {
         return i;
       }
     }
