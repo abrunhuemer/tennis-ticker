@@ -38,3 +38,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### local config files ###
+application-dev.properties
