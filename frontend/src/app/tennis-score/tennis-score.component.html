@@ -44,10 +44,10 @@
         </div>
 
         <div *ngIf="showPointControls" fxLayout="column">
-          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="match.addPoint(true)">
+          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="this.addPointPlayer1()">
             <mat-icon class="icon-75">add</mat-icon>
           </button>
-          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="match.addPoint(false)">
+          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="this.addPointPlayer2()">
             <mat-icon class="icon-75">add</mat-icon>
           </button>
         </div>
