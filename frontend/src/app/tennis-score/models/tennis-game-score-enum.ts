@@ -1,4 +1,4 @@
-export enum TennisGameEnum {
+export enum TennisGameScoreEnum {
   Love,
   Fifteen,
   Thirty,
