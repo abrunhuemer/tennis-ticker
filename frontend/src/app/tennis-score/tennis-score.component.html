@@ -5,18 +5,22 @@
   <mat-divider [inset]="true"></mat-divider>
   <mat-card-content class="result-card-content">
     <div fxLayout="row" class="result-row">
-      <div fxFlex="20%" fxLayout="column" fxLayoutAlign="center">
-        <div fxFlex="50%">
+      <div fxFlex="20%" fxLayout="column">
+        <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center start">
           {{match.playerName1}}
         </div>
-        <div fxFlex="50%">
+        <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center start">
           {{match.playerName2}}
         </div>
       </div>
       <div fxFlex="80%" fxLayoutAlign="end" fxLayout="row">
         <div class="games-box" fxLayout="column" fxLayoutAlign="center center">
-          <div><mat-icon class="icon-half" fxFlex="50%">sports_baseball</mat-icon></div>
-          <div><mat-icon class="icon-half" fxFlex="50%">sports_baseball</mat-icon></div>
+          <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="icon-half">sports_baseball</mat-icon>
+          </div>
+          <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="icon-half">sports_baseball</mat-icon>
+          </div>
         </div>
 
         <div *ngFor="let set of match.player1Score.sets; let i = index" class="games-box" fxLayout="row">
@@ -43,7 +47,7 @@
           </div>
         </div>
 
-        <div *ngIf="showPointControls" fxLayout="column">
+        <div *ngIf="showPointControls" fxLayout="column" fxLayoutAlign="center center">
           <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="this.addPointPlayer1()">
             <mat-icon class="icon-75">add</mat-icon>
           </button>
