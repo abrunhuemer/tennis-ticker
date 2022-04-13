@@ -19,14 +19,14 @@
           <div><mat-icon class="icon-half" fxFlex="50%">sports_baseball</mat-icon></div>
         </div>
 
-        <div *ngFor="let set of match.setsPlayer1; let i = index" class="games-box" fxLayout="row">
+        <div *ngFor="let set of match.player1Score.sets; let i = index" class="games-box" fxLayout="row">
           <mat-divider [vertical]="true"></mat-divider>
           <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-            <div fxFlex="50%" >
-              {{match.setsPlayer1[i]}}
+            <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center">
+              {{match.player1Score.sets[i]}}
             </div>
-            <div fxFlex="50%">
-              {{match.setsPlayer2[i]}}
+            <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center">
+              {{match.player2Score.sets[i]}}
             </div>
           </div>
         </div>
@@ -34,20 +34,20 @@
         <div class="games-box" fxLayout="row">
           <mat-divider [vertical]="true"></mat-divider>
           <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-            <div fxFlex="50%" >
-              {{match.inGamePointsPlayer1}}
+            <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center">
+              {{match.player1Score.inGamePoints}}
             </div>
-            <div fxFlex="50%">
-              {{match.inGamePointsPlayer2}}
+            <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center">
+              {{match.player2Score.inGamePoints}}
             </div>
           </div>
         </div>
 
         <div *ngIf="showPointControls" fxLayout="column">
-          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="match.addPoint(true)">
+          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="this.addPointPlayer1()">
             <mat-icon class="icon-75">add</mat-icon>
           </button>
-          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="match.addPoint(false)">
+          <button mat-flat-button class="mat-primary result-button" fxFlex="50%" (click)="this.addPointPlayer2()">
             <mat-icon class="icon-75">add</mat-icon>
           </button>
         </div>

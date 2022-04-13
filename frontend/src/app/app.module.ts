@@ -6,7 +6,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TennisResultComponent} from './tennis-result/tennis-result.component';
+import {TennisScoreComponent} from './tennis-score/tennis-score.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -17,7 +17,7 @@ import {environment} from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
-    TennisResultComponent
+    TennisScoreComponent
   ],
   imports: [
     BrowserModule,

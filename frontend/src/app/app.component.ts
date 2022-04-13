@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TennisMatch} from "./shared/models/tennis-match";
+import {TennisMatch} from "./tennis-score/models/tennis-match.model";
+import {MATCHES} from "./tennis-score/models/mock-tennis-matches";
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,15 @@ export class AppComponent implements OnInit {
 
   testMatch: TennisMatch;
 
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.testMatch = this.createTestMatch();
   }
 
   createTestMatch(): TennisMatch {
-    return new TennisMatch("Bernhard", "Alex");
+    return MATCHES[0];
   }
 
 }
