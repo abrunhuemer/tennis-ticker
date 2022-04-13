@@ -3,6 +3,7 @@ export interface TennisMatchSettings {
   gamesPerSet: number;
   tieBreakDecider: boolean;
   tieBreakDeciderPoints?: number;
+  tieBreakStandardPoints: number;
   isNoAdvantage: boolean;
 }
 
@@ -11,5 +12,6 @@ export const DEFAULT_MATCH_SETTINGS: TennisMatchSettings = {
   gamesPerSet: 6,
   tieBreakDecider: false,
   tieBreakDeciderPoints: undefined,
+  tieBreakStandardPoints: 7,
   isNoAdvantage: false
 }

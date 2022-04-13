@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TennisGameScoreEnum} from "../models/tennis-game-score-enum";
 import {TennisMatch} from "../models/tennis-match.model";
 import {TennisMatchSettings} from "../models/tennis-match-settings.model";
@@ -9,7 +9,8 @@ import {TennisMatchScore} from "../models/tennis-match-score.model";
 })
 export class TennisScoreService {
 
-  constructor() { }
+  constructor() {
+  }
 
   public initMatch(match: TennisMatch): void {
     match.player1Score = {
@@ -31,7 +32,7 @@ export class TennisScoreService {
    * @throws {Error}, if match is finished
    */
   public addPointForPlayer1(match: TennisMatch): void {
-    if(this.isMatchFinished(match)) {
+    if (this.isMatchFinished(match)) {
       throw new Error('match is already finished');
     }
     this.addPoint(match.player1Score, match.player2Score, match.settings);
@@ -41,15 +42,15 @@ export class TennisScoreService {
    * @throws {Error}, if match is finished
    */
   public addPointForPlayer2(match: TennisMatch): void {
-    if(this.isMatchFinished(match)) {
+    if (this.isMatchFinished(match)) {
       throw new Error('match is already finished');
     }
     this.addPoint(match.player2Score, match.player1Score, match.settings);
   }
 
   private addPoint(playerScoreWithPoint: TennisMatchScore, otherPlayerScore: TennisMatchScore, settings: TennisMatchSettings): void {
-    //TODO: handle tie break
-    let gameWon: boolean = this.isGameWon(settings, playerScoreWithPoint.inGamePoints, otherPlayerScore.inGamePoints);
+    //TODO: handle deciding match tie break
+    let gameWon: boolean = this.isGameWon(settings, playerScoreWithPoint, otherPlayerScore);
 
     if (gameWon) {
       this.resetInGame(playerScoreWithPoint, otherPlayerScore);
@@ -64,15 +65,32 @@ export class TennisScoreService {
     player2Score.inGamePoints = TennisGameScoreEnum.Love;
   }
 
-  private isGameWon(settings: TennisMatchSettings, inGameOfPlayerWithPoint: number, inGameOfOpponent: number): boolean {
-    //TODO: handle tie break
-    if (inGameOfPlayerWithPoint === TennisGameScoreEnum.Advantage) {
+  private isGameWon(settings: TennisMatchSettings, playerWithPointScore: TennisMatchScore, opponentScore: TennisMatchScore): boolean {
+    if (this.isTieBreak(settings, playerWithPointScore, opponentScore)) {
+      return this.isTieBreakWon(settings, playerWithPointScore.inGamePoints, opponentScore.inGamePoints);
+    }
+
+    if (playerWithPointScore.inGamePoints === TennisGameScoreEnum.Advantage) {
       return true;
     }
-    if (settings.isNoAdvantage && inGameOfPlayerWithPoint === TennisGameScoreEnum.Forty) {
+    if (settings.isNoAdvantage && playerWithPointScore.inGamePoints === TennisGameScoreEnum.Forty) {
       return true;
     }
-    return inGameOfPlayerWithPoint === TennisGameScoreEnum.Forty && inGameOfOpponent !== TennisGameScoreEnum.Forty;
+    return playerWithPointScore.inGamePoints === TennisGameScoreEnum.Forty
+      && !(opponentScore.inGamePoints in [TennisGameScoreEnum.Forty, TennisGameScoreEnum.Advantage]);
+  }
+
+  private isTieBreak(settings: TennisMatchSettings, player1Score: TennisMatchScore, player2Score: TennisMatchScore): boolean {
+    //TODO: handle deciding match tie break
+    let currentSetIndex: number = this.getIndexOfCurrentSet(player1Score, player2Score, settings);
+    return player1Score.sets[currentSetIndex] === player2Score.sets[currentSetIndex]
+      && player1Score.sets[currentSetIndex] === settings.gamesPerSet;
+  }
+
+  private isTieBreakWon(settings: TennisMatchSettings, pointsOfPlayerWithScore: number, pointsOfOpponent: number): boolean {
+    //TODO: handle deciding match tie break
+    const tieBreakWinPoints: number = settings.tieBreakStandardPoints;
+    return pointsOfPlayerWithScore >= tieBreakWinPoints && (pointsOfPlayerWithScore - pointsOfOpponent) >= 2;
   }
 
   private addGameForPlayer(playerScoreWithPoints: TennisMatchScore, otherPlayerScore: TennisMatchScore, settings: TennisMatchSettings): void {
