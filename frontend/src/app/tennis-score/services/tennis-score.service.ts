@@ -90,7 +90,7 @@ export class TennisScoreService {
   private isTieBreakWon(settings: TennisMatchSettings, pointsOfPlayerWithScore: number, pointsOfOpponent: number): boolean {
     //TODO: handle deciding match tie break
     const tieBreakWinPoints: number = settings.tieBreakStandardPoints;
-    return pointsOfPlayerWithScore >= tieBreakWinPoints && (pointsOfPlayerWithScore - pointsOfOpponent) >= 2;
+    return pointsOfPlayerWithScore >= tieBreakWinPoints && (pointsOfPlayerWithScore - pointsOfOpponent) >= 1;
   }
 
   private addGameForPlayer(playerScoreWithPoints: TennisMatchScore, otherPlayerScore: TennisMatchScore, settings: TennisMatchSettings): void {
