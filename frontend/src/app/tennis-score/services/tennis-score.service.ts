@@ -56,7 +56,11 @@ export class TennisScoreService {
       this.resetInGame(playerScoreWithPoint, otherPlayerScore);
       this.addGameForPlayer(playerScoreWithPoint, otherPlayerScore, settings);
     } else {
-      playerScoreWithPoint.inGamePoints++;
+      if (otherPlayerScore.inGamePoints === TennisGameScoreEnum.Advantage) {
+        otherPlayerScore.inGamePoints--;
+      } else {
+        playerScoreWithPoint.inGamePoints++;
+      }
     }
   }
 
@@ -76,8 +80,9 @@ export class TennisScoreService {
     if (settings.isNoAdvantage && playerWithPointScore.inGamePoints === TennisGameScoreEnum.Forty) {
       return true;
     }
+
     return playerWithPointScore.inGamePoints === TennisGameScoreEnum.Forty
-      && !(opponentScore.inGamePoints in [TennisGameScoreEnum.Forty, TennisGameScoreEnum.Advantage]);
+      && !([TennisGameScoreEnum.Forty, TennisGameScoreEnum.Advantage].includes(opponentScore.inGamePoints));
   }
 
   private isTieBreak(settings: TennisMatchSettings, player1Score: TennisMatchScore, player2Score: TennisMatchScore): boolean {
@@ -90,7 +95,8 @@ export class TennisScoreService {
   private isTieBreakWon(settings: TennisMatchSettings, pointsOfPlayerWithScore: number, pointsOfOpponent: number): boolean {
     //TODO: handle deciding match tie break
     const tieBreakWinPoints: number = settings.tieBreakStandardPoints;
-    return pointsOfPlayerWithScore >= tieBreakWinPoints && (pointsOfPlayerWithScore - pointsOfOpponent) >= 1;
+    const newPoints = pointsOfPlayerWithScore + 1;
+    return newPoints >= tieBreakWinPoints && (newPoints - pointsOfOpponent) >= 2;
   }
 
   private addGameForPlayer(playerScoreWithPoints: TennisMatchScore, otherPlayerScore: TennisMatchScore, settings: TennisMatchSettings): void {
@@ -120,7 +126,7 @@ export class TennisScoreService {
     return gameDifference >= 2 && (gamesPlayer1 === settings.gamesPerSet || gamesPlayer2 === settings.gamesPerSet);
   }
 
-  private isMatchFinished(match: TennisMatch): boolean {
+  public isMatchFinished(match: TennisMatch): boolean {
     try {
       this.getIndexOfCurrentSet(match.player1Score, match.player2Score, match.settings);
     } catch (e) {
