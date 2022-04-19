@@ -22,6 +22,7 @@ describe('TennisScoreService', () => {
   it('should add simple in game point', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
     service.addPointForPlayer1(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Fifteen);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player1Score.sets[0]).toEqual(0);
@@ -66,6 +67,7 @@ describe('TennisScoreService', () => {
     }
 
     service.addPointForPlayer1(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Advantage);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Forty);
     expect(match.player1Score.sets[0]).toEqual(0);
@@ -78,8 +80,10 @@ describe('TennisScoreService', () => {
       service.addPointForPlayer1(match);
       service.addPointForPlayer2(match);
     }
+
     service.addPointForPlayer1(match);
     service.addPointForPlayer1(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player1Score.sets[0]).toEqual(1);
@@ -88,12 +92,12 @@ describe('TennisScoreService', () => {
 
   it('should be 40-40 after A-40 if player with 40 makes point', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
-    for (let i = 0; i < 3; i++) {
+
+    for (let i = 0; i < 4; i++) {
       service.addPointForPlayer1(match);
       service.addPointForPlayer2(match);
     }
-    service.addPointForPlayer1(match);
-    service.addPointForPlayer2(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Forty);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Forty);
     expect(match.player1Score.sets[0]).toEqual(0);
@@ -103,11 +107,13 @@ describe('TennisScoreService', () => {
   it('game should end at 40-40 if no-ad is active', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
     match.settings.isNoAdvantage = true;
+
     for (let i = 0; i < 3; i++) {
       service.addPointForPlayer1(match);
       service.addPointForPlayer2(match);
     }
     service.addPointForPlayer2(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player1Score.sets[0]).toEqual(0);
@@ -116,7 +122,9 @@ describe('TennisScoreService', () => {
 
   it('end set after gamesPerSet is reached', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
-    for (let i = 0; i < 28; i++) {
+    match.player1Score.sets[0] = 6;
+
+    for (let i = 0; i < 4; i++) {
       service.addPointForPlayer1(match);
     }
 
@@ -131,40 +139,34 @@ describe('TennisScoreService', () => {
   it('should throw error if point is added on finished match', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
     match.settings.bestOfSets = 1;
-    for (let i = 0; i < 24; i++) {
-      service.addPointForPlayer1(match);
-    }
+    match.player1Score.sets[0] = 6;
+
     expect(() => service.addPointForPlayer1(match)).toThrowError('match is already finished');
   });
 
   it('isMatchFinished should return true if match is finished', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
     match.settings.bestOfSets = 1;
-    for (let i = 0; i < 24; i++) {
-      service.addPointForPlayer1(match);
-    }
+    match.player1Score.sets[0] = 6;
+
     expect(service.isMatchFinished(match)).toBeTrue();
   });
 
   it('isMatchFinished should return false if match is not finished', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
+
     expect(service.isMatchFinished(match)).toBeFalse();
   });
 
   it('set should not end at 6-5', () => {
     match = initDefaultTennisMatch('playerA', 'playerB');
-    for (let i = 0; i < 20; i++) {
-      service.addPointForPlayer1(match);
-    }
-    for (let i = 0; i < 20; i++) {
-      service.addPointForPlayer2(match);
-    }
-    for (let i = 0; i < 4; i++) {
-      service.addPointForPlayer1(match);
-    }
+    match.player1Score.sets[0] = 6;
+    match.player2Score.sets[0] = 5;
+
     for (let i = 0; i < 4; i++) {
       service.addPointForPlayer2(match);
     }
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player1Score.sets[0]).toEqual(6);
@@ -181,6 +183,7 @@ describe('TennisScoreService', () => {
     for (let i = 0; i < 6; i++) {
       service.addPointForPlayer1(match);
     }
+
     expect(match.player1Score.inGamePoints).toEqual(6);
     expect(match.player2Score.inGamePoints).toEqual(0);
     expect(match.player1Score.sets[0]).toEqual(6);
@@ -194,7 +197,9 @@ describe('TennisScoreService', () => {
     match.player1Score.sets[0] = 6;
     match.player2Score.sets[0] = 6;
     match.player1Score.inGamePoints = 6;
+
     service.addPointForPlayer1(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player1Score.sets[0]).toEqual(7);
@@ -210,7 +215,9 @@ describe('TennisScoreService', () => {
     match.player2Score.sets[0] = 6;
     match.player1Score.inGamePoints = 6;
     match.player2Score.inGamePoints = 6;
+
     service.addPointForPlayer1(match);
+
     expect(match.player1Score.inGamePoints).toEqual(7);
     expect(match.player2Score.inGamePoints).toEqual(6);
     expect(match.player1Score.sets[0]).toEqual(6);
@@ -225,22 +232,16 @@ describe('TennisScoreService', () => {
     match.player2Score.sets[0] = 6;
     match.player1Score.inGamePoints = 6;
     match.player2Score.inGamePoints = 6;
+
     service.addPointForPlayer1(match);
     service.addPointForPlayer1(match);
+
     expect(match.player1Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player2Score.inGamePoints).toEqual(TennisGameScoreEnum.Love);
     expect(match.player1Score.sets[0]).toEqual(7);
     expect(match.player2Score.sets[0]).toEqual(6);
     expect(match.player1Score.sets[1]).toEqual(0);
     expect(match.player2Score.sets[1]).toEqual(0);
-  })
-
-  it('if match tie break is set, then final set should be a tie break', () => {
-    expect(false).toBeTrue();
-  })
-
-  it('isMatchFinished should be true, after match tie break is over', () => {
-    expect(false).toBeTrue();
   })
 });
 
